@@ -11,8 +11,7 @@ class Solution:
             
             if(prefSum in hm):
                 res = max(res, i - hm[prefSum])
-                
-            if(prefSum not in hm):
+            else:
                 hm[prefSum] = i
         
         return res
