@@ -1,26 +1,24 @@
 class Solution:
-    def canShip(self, weights: List[int], capacity: int, days: int) -> bool:
-        cnt, flag = 1, False
-        size = capacity
-        i = 0
+    def canShip(self, weights, n, capacity) -> int:
+        cnt, load = 1, 0
 
-        while(i < len(weights)):
-            if(weights[i] <= size):
-                size -= weights[i]
-                i += 1
-            else:
+        for i in range(len(weights)):
+            if(load + weights[i] > capacity):
                 cnt += 1
-                size = capacity
+                load = weights[i]
+            else:
+                load += weights[i]
 
-        return cnt <= days
+        return cnt
 
     def shipWithinDays(self, weights: List[int], days: int) -> int:
         low, high = max(weights), sum(weights)
-        ans = -1
+        ans, n = -1, len(weights)
 
         while(low <= high):
             mid = (low + high) // 2
-            if(self.canShip(weights, mid, days)):
+            count = self.canShip(weights, n, mid)
+            if(count <= days):
                 ans = mid
                 high = mid - 1
             else:
