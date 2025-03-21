@@ -11,19 +11,19 @@ class Solution:
 
         mp = defaultdict(lambda: [])
         
-        def traverse(node, x, y):
+        def traverse(node, vertical, level):
             if not node:
                 return
-            mp[x].append((y, node.val))
-            traverse(node.left, x-1, y+1)
-            traverse(node.right, x+1, y+1)
+            mp[vertical].append((level, node.val))
+            traverse(node.left, vertical - 1, level + 1)
+            traverse(node.right, vertical + 1, level + 1)
         
         traverse(root, 0, 0)
         
         result = []
-        for x in sorted(mp.keys()):
-            mp[x].sort()
-            result.append([val for _, val in mp[x]])
+        for vertical in sorted(mp.keys()):
+            mp[vertical].sort()
+            result.append([val for _, val in mp[vertical]])
         
         return result        
         
