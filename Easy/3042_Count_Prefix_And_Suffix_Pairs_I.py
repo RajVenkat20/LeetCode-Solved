@@ -4,6 +4,6 @@ class Solution:
         for i in range(len(words)):
             for j in range(i + 1, len(words)):
                 L = len(words[i])
-                if(words[i] == words[j][:L] and words[i] == words[j][-L:]):
+                if(words[j].startswith(words[i]) and words[j].endswith(words[i])):
                     res += 1
         return res
