@@ -1,12 +1,12 @@
-class Solution:
-    def minCostClimbingStairs(self, cost: List[int]) -> int:
-        min_cost = [0, 0]
-        n = len(cost)
+class Solution(object):
+    def minCostClimbingStairs(self, cost):
+        """
+        :type cost: List[int]
+        :rtype: int
+        """
+        cost.append(0)
 
-        for i in range(2, n + 1):
-            next_cost = min(min_cost[i - 2] + cost[i - 2],
-                            min_cost[i - 1] + cost[i - 1])
+        for i in range(len(cost) - 3, -1, -1):
+            cost[i] += min(cost[i + 1], cost[i + 2])
 
-            min_cost.append(next_cost)
-
-        return min_cost[-1]
+        return min(cost[0], cost[1])
