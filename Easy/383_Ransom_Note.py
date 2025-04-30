@@ -5,16 +5,17 @@ class Solution(object):
         :type magazine: str
         :rtype: bool
         """
-        hm1, hm2 = {}, {}
+        hm = {}
+        
+        for char in magazine:
+            hm[char] = hm.get(char, 0) + 1
 
         for char in ransomNote:
-            hm1[char] = hm1.get(char, 0) + 1
-
-        for char in magazine:
-            hm2[char] = hm2.get(char, 0) + 1
-
-        for key in hm1:
-            if(hm1[key] > hm2.get(key, 0)):
+            if(char not in hm):
                 return False
+            elif(hm[char] == 1):
+                del hm[char]
+            else:
+                hm[char] -= 1
 
         return True
