@@ -7,23 +7,25 @@ class Solution(object):
         :type k: int
         :rtype: List[int]
         """
-        q = deque()
-        output = []
-        l = r = 0
+        res = []
+        dq = deque()
 
-        while(r < len(nums)):
-            while(q and nums[q[-1]] < nums[r]):
-                q.pop()
+        for i in range(k):
+            while(dq and nums[i] >= nums[dq[-1]]):
+                dq.pop()
 
-            q.append(r)
+            dq.append(i)
 
-            if(l > q[0]):
-                q.popleft()
+        res.append(nums[dq[0]])
 
-            if(r + 1 >= k):
-                output.append(nums[q[0]])
-                l += 1
+        for i in range(k, len(nums)):
+            if(dq and dq[0] == i - k):
+                dq.popleft()
 
-            r += 1
+            while(dq and nums[i] >= nums[dq[-1]]):
+                dq.pop()
 
-        return output
+            dq.append(i)
+            res.append(nums[dq[0]])
+
+        return res
