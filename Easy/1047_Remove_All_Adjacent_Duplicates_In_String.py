@@ -3,8 +3,8 @@ class Solution:
         if(len(s) <= 1):
             return s
 
-        stack = [s[0]]
-        for char in s[1:]:
+        stack = []
+        for char in s:
             if(stack and stack[-1] == char):
                 stack.pop()
             else:
